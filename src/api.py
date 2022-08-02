@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-from utility import *
-from search_algo import *
+from .utility import *
+from .search_algo import *
 app = Flask(__name__)
 
 
@@ -116,7 +116,6 @@ def search_route():
     
     # Return the response in json format
     return jsonify(response)
-
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
