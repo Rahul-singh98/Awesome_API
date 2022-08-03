@@ -1,6 +1,6 @@
-from flask import Flask, request, jsonify
-from .utility import *
-from .search_algo import *
+from flask import Flask, request, jsonify, render_template
+import utility
+import search_algo
 app = Flask(__name__)
 
 
@@ -107,7 +107,7 @@ def search_route():
     else:
         values = list(map(int, values.split(',')))
         key = int(key)
-        res = execution_time(binary_search, values=values, key=key)
+        res = utility.execution_time(search_algo.binary_search, values=values, key=key)
         if res[0] == 0:
             response['ERROR'] = "Internal Server Error"
         else:
@@ -116,6 +116,10 @@ def search_route():
     
     # Return the response in json format
     return jsonify(response)
+
+@app.route("/whiteboard", methods=["GET"])
+def show_whiteboard():
+    return render_template("whiteboard.html")
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
